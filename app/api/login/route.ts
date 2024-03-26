@@ -2,7 +2,7 @@ import bcrypt from 'bcrypt'
 import { serialize } from 'cookie';
 import jwt from 'jsonwebtoken'
 import User, { IUser } from "@/models/user";
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import connectMongoDB from '@/utils/database';
 
 const JWT_TOKEN_SECRET = process.env.JWT_TOKEN_SECRET || ''
@@ -13,7 +13,7 @@ interface IRegUser extends IUser {
   _id: string
 }
 
-export async function POST (request: NextRequest) {
+export async function POST (request: Request) {
   const { email, password } = await request.json()
 
   try {

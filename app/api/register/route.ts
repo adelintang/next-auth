@@ -1,9 +1,9 @@
 import bcrypt from 'bcrypt'
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 import connectMongoDB from "@/utils/database";
 import User, { ISchema } from "@/models/user";
 
-export async function POST (request: NextRequest) {
+export async function POST (request: Request) {
   const { email, username, password } = await request.json()
 
   try {
