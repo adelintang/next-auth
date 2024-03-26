@@ -1,10 +1,41 @@
+'use client';
+
+import { ILogin } from "../login/page";
+import { IRegister } from "../register/page";
+
 interface WrapperAuthProps {
   name: 'login' | 'register'
+  onLogin?: (payload: ILogin) => any
+  onRegister?: (payload: IRegister) => any
 }
 
-export default function WrapperAuth({ name }: WrapperAuthProps) {
+export default function WrapperAuth({ name, onLogin, onRegister }: WrapperAuthProps) {
+  const submitHandler = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+
+    if (name === 'register') {
+      const payload = {
+        email: event.currentTarget.email.value,
+        username: event.currentTarget.username.value,
+        password: event.currentTarget.password.value,
+      }
+
+      onRegister && onRegister(payload)
+    } else {
+      const payload = {
+        email: event.currentTarget.email.value,
+        password: event.currentTarget.password.value,
+      }
+
+      onLogin && onLogin(payload)
+    }
+  }
+
   return (
-    <form className="m-auto w-[90%] mx-auto rounded p-4">
+    <form
+      className="m-auto w-[90%] mx-auto rounded p-4"
+      onSubmit={submitHandler}
+    >
       <h1 className="text-xl font-semibold text-blue-600 text-center">{name.at(0)?.toUpperCase() + name.slice(1)} Page</h1>
       <div className="flex flex-col mt-8 gap-y-3">
         <input
