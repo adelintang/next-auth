@@ -6,7 +6,7 @@ export interface ISchema {
   required: [boolean, string]
 }
 
-interface IUser {
+export interface IUser {
   email: ISchema
   username: ISchema
   password: ISchema
