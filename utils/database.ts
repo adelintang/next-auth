@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-const MONGO_URL = process.env.MONGO_URL as string
+const MONGO_URL = process.env.MONGO_URL || ''
 
 const connectMongoDB = async () => {
   try {

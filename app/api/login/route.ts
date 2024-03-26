@@ -6,7 +6,7 @@ import { NextRequest, NextResponse } from "next/server";
 import connectMongoDB from '@/utils/database';
 
 const JWT_TOKEN_SECRET = process.env.JWT_TOKEN_SECRET || ''
-const COOKIE_NAME = process.env.COOKIE_NAME as string
+const COOKIE_NAME = process.env.COOKIE_NAME || ''
 const MAX_AGE = 60 * 60 * 24 * 30
 
 interface IRegUser extends IUser {
