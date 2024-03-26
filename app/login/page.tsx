@@ -1,9 +1,35 @@
+'use client';
+
 import WrapperAuth from "../components/WrapperAuth";
 
-export default function LoginPage () {
+export interface ILogin {
+  email: string
+  password: string
+}
+
+async function PostLogin({ email, password }: ILogin) {
+  try {
+    const response = await fetch('http://localhost:3000/api/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ email, password })
+    })
+
+    const user = await response.json()
+    return user;
+  } catch (error) {
+    if (error instanceof Error) {
+      console.log(error.message)
+    }
+  }
+}
+
+export default function LoginPage() {
   return (
     <main className="w-full min-h-screen flex bg-[#14213D]">
-      <WrapperAuth name="login" />
+      <WrapperAuth onLogin={PostLogin} name="login" />
     </main>
   )
 }
