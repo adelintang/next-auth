@@ -9,15 +9,13 @@ export async function POST (request: NextRequest) {
   try {
     await connectMongoDB()
 
-    const id = `${+new Date()}` as unknown as ISchema
     const hashedPassword = await bcrypt.hash(password, 10) as unknown as ISchema 
 
-    const newUser = new User({ id, email, username, password: hashedPassword })
+    const newUser = new User({ email, username, password: hashedPassword })
     await newUser.save()
 
     return NextResponse.json({
       message: 'registration successfully',
-      data: { id }
     }, { status: 200 })
   } catch (error) {
     if (error instanceof Error) {

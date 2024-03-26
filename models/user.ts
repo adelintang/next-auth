@@ -7,18 +7,12 @@ export interface ISchema {
 }
 
 interface IUser {
-  id: ISchema
   email: ISchema
   username: ISchema
   password: ISchema
 }
 
 const userSchema = new Schema<IUser>({
-  id: {
-    type: String,
-    unique: [true, 'Id already exists!'],
-    required: [true, 'Id is required!'],
-  },
   email: {
     type: String,
     unique: [true, 'Email already exists!'],
