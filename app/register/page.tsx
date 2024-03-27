@@ -8,10 +8,9 @@ export interface IRegister {
   password: string
 }
 
-const PostRegister = ({ email, username, password }: IRegister) => {
-  async function fetchRegister() {
+const PostRegister = async ({ email, username, password }: IRegister) => {
     try {
-      const response = await fetch('http://localhost:3000/api/register', {
+      const response = await fetch('/api/register', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -26,9 +25,6 @@ const PostRegister = ({ email, username, password }: IRegister) => {
         console.log(error.message)
       }
     }
-  }
-
-  return fetchRegister()
 }
 
 

@@ -8,22 +8,22 @@ export interface ILogin {
 }
 
 async function PostLogin({ email, password }: ILogin) {
-  try {
-    const response = await fetch('http://localhost:3000/api/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ email, password })
-    })
+    try {
+      const response = await fetch('/api/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ email, password })
+      })
 
-    const user = await response.json()
-    return user;
-  } catch (error) {
-    if (error instanceof Error) {
-      console.log(error.message)
+      const user = await response.json()
+      return user;
+    } catch (error) {
+      if (error instanceof Error) {
+        console.log(error.message)
+      }
     }
-  }
 }
 
 export default function LoginPage() {
