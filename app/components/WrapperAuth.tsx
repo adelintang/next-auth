@@ -1,16 +1,19 @@
 'use client';
 
+import { useRouter } from "next/navigation";
 import { ILogin } from "../login/page";
 import { IRegister } from "../register/page";
 
 interface WrapperAuthProps {
   name: 'login' | 'register'
-  onLogin?: (payload: ILogin) => any
-  onRegister?: (payload: IRegister) => any
+  onLogin?: (payload: ILogin) => Promise<any>
+  onRegister?: (payload: IRegister) => Promise<any>
 }
 
 export default function WrapperAuth({ name, onLogin, onRegister }: WrapperAuthProps) {
-  const submitHandler = (event: React.FormEvent<HTMLFormElement>) => {
+  const router = useRouter()
+
+  const submitHandler = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
 
     if (name === 'register') {
@@ -20,14 +23,16 @@ export default function WrapperAuth({ name, onLogin, onRegister }: WrapperAuthPr
         password: event.currentTarget.password.value,
       }
 
-      onRegister && onRegister(payload)
+      onRegister && await onRegister(payload)
+      router.push('/login')
     } else {
       const payload = {
         email: event.currentTarget.email.value,
         password: event.currentTarget.password.value,
       }
 
-      onLogin && onLogin(payload)
+      onLogin && await onLogin(payload)
+      router.push('/home')
     }
   }
 
